@@ -3,42 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajasthani Dresses E-Commerce</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Rajasthani Dresses Shopping</title>
+    <style>
+        body {
+            background-color: #d1ab80; /* Tan */
+            color: #3b2a0a; /* Dark Brown */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #c4863a; /* Lighter Brown */
+        }
+        .product {
+            border: 1px solid #3b2a0a;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            text-align: center;
+            background-color: #f5ebda; /* Very Light Tan */
+        }
+        .cart {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #3b2a0a;
+            border-radius: 5px;
+        }
+        .contact-form {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #3b2a0a;
+            border-radius: 5px;
+            background-color: #f5ebda;
+        }
+        button {
+            background-color: #c4863a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3b2a0a;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Rajasthani Dresses</h1>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#shop">Shop</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="home">
-            <h2>Discover Traditional Elegance</h2>
-            <p>Explore our stunning collection of traditional Rajasthani dresses.</p>
-        </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We are dedicated to providing the finest handmade Rajasthani dresses, crafted by local artisans.</p>
-        </section>
-        <section id="shop">
-            <h2>Shop</h2>
-            <p>Browse our collection of dresses, accessories, and more.</p>
-            <button><a href="#">Shop Now</a></button>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, feel free to <a href="mailto:info@rajasthanidresses.com">email us</a>.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Rajasthani Dresses. All rights reserved.</p>
-    </footer>
+    <h1>Shopping for Rajasthani Dresses</h1>
+
+    <div id="product-list">
+        <div class="product">
+            <h2>Traditional Ghagra Choli</h2>
+            <p>Price: ₹2500</p>
+            <button onclick="addToCart('Traditional Ghagra Choli', 2500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <h2>Silk Saree</h2>
+            <p>Price: ₹3500</p>
+            <button onclick="addToCart('Silk Saree', 3500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <h2>Bandhani Dress</h2>
+            <p>Price: ₹1800</p>
+            <button onclick="addToCart('Bandhani Dress', 1800)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <h2>Lehenga Set</h2>
+            <p>Price: ₹4000</p>
+            <button onclick="addToCart('Lehenga Set', 4000)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <h2>Embroidered Kameez</h2>
+            <p>Price: ₹2000</p>
+            <button onclick="addToCart('Embroidered Kameez', 2000)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <h2>Mirror Work Blouse</h2>
+            <p>Price: ₹1500</p>
+            <button onclick="addToCart('Mirror Work Blouse', 1500)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>Your Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: ₹<span id="total">0</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form onsubmit="submitContactForm(event)">
+            <label for="name">Name:</label><br/>
+            <input type="text" id="name" required><br/>
+            <label for="email">Email:</label><br/>
+            <input type="email" id="email" required><br/>
+            <label for="message">Message:</label><br/>
+            <textarea id="message" required></textarea><br/>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        let cart = {};
+        let total = 0;
+
+        function addToCart(product, price) {
+            if (cart[product]) {
+                cart[product].quantity++;
+            } else {
+                cart[product] = { price: price, quantity: 1 };
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            total = 0;
+            for (let item in cart) {
+                cartItems.innerHTML += `<li>${item} - ₹${cart[item].price} x ${cart[item].quantity} <button onclick="removeFromCart('${item}')">Remove</button></li>`;
+                total += cart[item].price * cart[item].quantity;
+            }
+            document.getElementById('total').innerText = total;
+        }
+
+        function removeFromCart(product) {
+            delete cart[product];
+            updateCart();
+        }
+
+        function checkout() {
+            alert('Proceeding to checkout. Total: ₹' + total);
+            cart = {};
+            updateCart();
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            alert('Thank you for your message, ' + document.getElementById('name').value + '!');
+        }
+    </script>
 </body>
 </html>
