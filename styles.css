@@ -1,0 +1,43 @@
+/* CSS styling for Rajasthani dresses website */
+
+body {
+    background-color: #d4a574; /* Light tan color for traditional look */
+    color: #8b6f47; /* Darker brown for text */
+    font-family: 'Arial', sans-serif;
+}
+
+header {
+    background-color: #8b6f47;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1, h2, h3 {
+    margin: 10px 0;
+}
+
+nav {
+    background-color: #d4a574;
+    padding: 10px;
+}
+
+nav a {
+    color: #8b6f47;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #8b6f47;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
